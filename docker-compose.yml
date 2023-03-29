@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+    api_node:
+        # to scale this container to multiple instances, we have to omit the unique container name
+        # container_name: api_node
+        build:
+            context: ./docker/api
+        deploy:
+            replicas: 3
+        ports:
+            - "8000-8002:80"
+        volumes:
+            # we'll just use the common web directory for this
+            - ./src/:/var/www/
+        depends_on:
+            - database
+
+    database:
+        container_name: database
+        image: mariadb:10.11.2-jammy
+        command: --sql_mode=''
+        restart: always
+        ports:
+            - "3306"
+        environment:
+            # don't do this in production, obvs
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=no
+        volumes:
+            # this will run any sh scripts in the mapped folder when the container comes up
+            - ./docker/database/scripts/:/docker-entrypoint-initdb.d/

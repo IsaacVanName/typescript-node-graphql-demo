@@ -1,0 +1,27 @@
+type Song {
+    id: ID!
+    title: String!
+    album: Album
+    artist: Artist
+}
+
+input SongInput {
+    title: String!
+    album: AlbumInput
+    artist: ArtistInput
+}
+
+extend type Query {
+    songs: [Song]
+    song(id: ID!): Song
+}
+
+type Mutation {
+    createSong(input: SongInput): Song!
+    updateSong(id: ID!, input: SongInput): Song!
+    deleteSong(id: ID!): Song!
+}
+
+type Subscription {   
+    newSong: Song!
+}
