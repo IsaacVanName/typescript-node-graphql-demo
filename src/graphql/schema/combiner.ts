@@ -26,7 +26,6 @@ export class Combiner {
         return this;
     }
 
-
     public toGQL(): TypeSource {
         return gql`
             ${this.tables.join("\n\n")}
