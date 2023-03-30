@@ -20,5 +20,21 @@ Once the containers have launched, the NodeJS servers will take a quick moment b
 
 For testing requests against the API servers, I like to use Postman.
 
+## Example GraphQL query to use
+```
+query {
+  albums {
+    id
+    title
+    artist {
+      name
+    }
+    songs {
+      title
+    }
+  }
+}
+```
+
 ## Feedback
 If you check out the demo and think I could've done things differently, let me know using the Issues tab! Feedback is the best way for me to break habits and grow. :)
